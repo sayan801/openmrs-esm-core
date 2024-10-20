@@ -45,8 +45,12 @@ export function setupI18n() {
             .then(([json, overrides]) => {
               let translations = json?.default ?? {};
 
-              if (language in overrides) {
-                translations = merge(translations, overrides[language]);
+              if (Array.isArray(overrides) && overrides.length > 0) {
+                overrides.forEach((override) => {
+                  if (language in override) {
+                    translations = merge(translations, override[language]);
+                  }
+                });
               }
 
               callback(null, translations);
