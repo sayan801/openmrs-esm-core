@@ -2,12 +2,14 @@
 import { useEffect, useMemo, useState } from 'react';
 import useSWR from 'swr';
 import { fetchCurrentPatient } from '@openmrs/esm-api';
+import { getPatientChartStore } from '@openmrs/esm-globals';
 
 export type NullablePatient = fhir.Patient | null;
 
-function getPatientUuidFromUrl() {
+export function getPatientUuidFromStore() {
   const match = /\/patient\/([a-zA-Z0-9\-]+)\/?/.exec(location.pathname);
-  return match && match[1];
+  const patientUuidFromUrl = match && match[1];
+  return patientUuidFromUrl || getPatientChartStore().getState().patientUuid;
 }
 
 /**
@@ -17,7 +19,7 @@ function getPatientUuidFromUrl() {
  * a route listener is set up to update the patient whenever the route changes.
  */
 export function usePatient(patientUuid?: string) {
-  const [currentPatientUuid, setCurrentPatientUuid] = useState(patientUuid ?? getPatientUuidFromUrl());
+  const [currentPatientUuid, setCurrentPatientUuid] = useState(patientUuid ?? getPatientUuidFromStore());
 
   const {
     data: patient,
@@ -29,7 +31,7 @@ export function usePatient(patientUuid?: string) {
 
   useEffect(() => {
     const handleRouteUpdate = () => {
-      const newPatientUuid = getPatientUuidFromUrl();
+      const newPatientUuid = getPatientUuidFromStore();
       if (newPatientUuid !== currentPatientUuid) {
         setCurrentPatientUuid(newPatientUuid);
       }
