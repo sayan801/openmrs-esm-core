@@ -15,6 +15,7 @@
 - [getCurrentUser](API.md#getcurrentuser)
 - [getLocations](API.md#getlocations)
 - [getLoggedInUser](API.md#getloggedinuser)
+- [getPatientUuidFromStore](API.md#getpatientuuidfromstore)
 - [getSessionLocation](API.md#getsessionlocation)
 - [getSessionStore](API.md#getsessionstore)
 - [getVisitStore](API.md#getvisitstore)
@@ -191,9 +192,11 @@
 - [evaluateAsTypeAsync](API.md#evaluateastypeasync)
 - [evaluateAsync](API.md#evaluateasync)
 - [extractVariableNames](API.md#extractvariablenames)
+- [getPatientChartStore](API.md#getpatientchartstore)
 - [isOnline](API.md#isonline)
 - [useFhirFetchAll](API.md#usefhirfetchall)
 - [useFhirInfinite](API.md#usefhirinfinite)
+- [usePatientChartStore](API.md#usepatientchartstore)
 
 ### Store Functions
 
@@ -300,7 +303,7 @@ ___
 
 #### Defined in
 
-[packages/framework/esm-react-utils/src/usePatient.ts:6](https://github.com/openmrs/openmrs-esm-core/blob/main/packages/framework/esm-react-utils/src/usePatient.ts#L6)
+[packages/framework/esm-react-utils/src/usePatient.ts:7](https://github.com/openmrs/openmrs-esm-core/blob/main/packages/framework/esm-react-utils/src/usePatient.ts#L7)
 
 ___
 
@@ -2430,6 +2433,20 @@ ___
 
 ___
 
+### getPatientUuidFromStore
+
+▸ **getPatientUuidFromStore**(): `string`
+
+#### Returns
+
+`string`
+
+#### Defined in
+
+[packages/framework/esm-react-utils/src/usePatient.ts:9](https://github.com/openmrs/openmrs-esm-core/blob/main/packages/framework/esm-react-utils/src/usePatient.ts#L9)
+
+___
+
 ### getSessionLocation
 
 ▸ **getSessionLocation**(): `Promise`<`undefined` \| [`SessionLocation`](interfaces/SessionLocation.md)\>
@@ -2930,11 +2947,11 @@ a route listener is set up to update the patient whenever the route changes.
 | `error` | `undefined` \| ``null`` \| `Error` |
 | `isLoading` | `boolean` |
 | `patient` | `undefined` \| [`NullablePatient`](API.md#nullablepatient) |
-| `patientUuid` | ``null`` \| `string` |
+| `patientUuid` | `string` |
 
 #### Defined in
 
-[packages/framework/esm-react-utils/src/usePatient.ts:19](https://github.com/openmrs/openmrs-esm-core/blob/main/packages/framework/esm-react-utils/src/usePatient.ts#L19)
+[packages/framework/esm-react-utils/src/usePatient.ts:21](https://github.com/openmrs/openmrs-esm-core/blob/main/packages/framework/esm-react-utils/src/usePatient.ts#L21)
 
 ___
 
@@ -6261,6 +6278,20 @@ on these expressions.
 
 ___
 
+### getPatientChartStore
+
+▸ **getPatientChartStore**(): `StoreApi`<`PatientChartStore`\>
+
+#### Returns
+
+`StoreApi`<`PatientChartStore`\>
+
+#### Defined in
+
+[packages/framework/esm-globals/src/store/patient-chart-store.ts:13](https://github.com/openmrs/openmrs-esm-core/blob/main/packages/framework/esm-globals/src/store/patient-chart-store.ts#L13)
+
+___
+
 ### isOnline
 
 ▸ **isOnline**(`online?`): `boolean`
@@ -6358,6 +6389,20 @@ a UseServerInfiniteReturnObject object
 #### Defined in
 
 [packages/framework/esm-react-utils/src/useFhirInfinite.ts:24](https://github.com/openmrs/openmrs-esm-core/blob/main/packages/framework/esm-react-utils/src/useFhirInfinite.ts#L24)
+
+___
+
+### usePatientChartStore
+
+▸ **usePatientChartStore**(): `PatientChartStore`
+
+#### Returns
+
+`PatientChartStore`
+
+#### Defined in
+
+[packages/framework/esm-globals/src/store/patient-chart-store.ts:17](https://github.com/openmrs/openmrs-esm-core/blob/main/packages/framework/esm-globals/src/store/patient-chart-store.ts#L17)
 
 ___
 
