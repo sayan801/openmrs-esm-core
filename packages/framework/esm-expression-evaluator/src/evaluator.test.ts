@@ -63,6 +63,19 @@ describe('OpenMRS Expression Evaluator', () => {
     expect(() => evaluate('a["b"]["c"]', { a: {} })).toThrow(
       "TypeError: cannot read properties of undefined (reading 'c')",
     );
+    expect(() => evaluate('a()')).toThrow('ReferenceError: a is not defined');
+    expect(() => evaluate('a.b()', { a: {} })).toThrow('ReferenceError: a.b is not defined');
+    expect(() => evaluate('a.b.c()', { a: { b: {} } })).toThrow('ReferenceError: a.b.c is not defined');
+  });
+
+  it('Should give a useful error message when attempting to call a non-function', () => {
+    expect(() => evaluate('a()', { a: {} })).toThrow('TypeError: a is not a function');
+    expect(() => evaluate('a()', { a: '' })).toThrow('TypeError: a is not a function');
+    expect(() => evaluate('a()', { a: [] })).toThrow('TypeError: a is not a function');
+    expect(() => evaluate('a()', { a: 1 })).toThrow('TypeError: a is not a function');
+    expect(() => evaluate('a()', { a: null })).toThrow('TypeError: a is not a function');
+    expect(() => evaluate('a()', { a: NaN })).toThrow('TypeError: a is not a function');
+    expect(() => evaluate('a()', { a: Infinity })).toThrow('TypeError: a is not a function');
   });
 
   it('Should not support this', () => {

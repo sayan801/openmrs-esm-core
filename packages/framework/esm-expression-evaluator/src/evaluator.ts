@@ -388,7 +388,10 @@ function visitExpressionName(expression: jsep.Expression, context: EvaluationCon
     case 'Identifier':
       return (expression as jsep.Identifier).name;
     case 'MemberExpression':
-      return visitExpressionName((expression as jsep.MemberExpression).property, context);
+      return `${visitExpressionName((expression as jsep.MemberExpression).object, context)}.${visitExpressionName(
+        (expression as jsep.MemberExpression).property,
+        context,
+      )}`;
     default:
       throw `VisitExpressionName does not support expression of type '${expression.type}'`;
   }
@@ -466,10 +469,10 @@ function visitCallExpression(expression: jsep.CallExpression, context: Evaluatio
   let args = expression.arguments?.map(handleNullableExpression(context));
   let callee = visitExpression(expression.callee, context);
 
-  if (!callee) {
-    throw `No function named ${expression.callee} is defined in this context`;
+  if (typeof callee === 'undefined') {
+    throw new ReferenceError(`ReferenceError: ${visitExpressionName(expression.callee, context)} is not defined`);
   } else if (!(typeof callee === 'function')) {
-    throw `${expression.callee} is not a function`;
+    throw new TypeError(`TypeError: ${visitExpressionName(expression.callee, context)} is not a function`);
   }
 
   return callee(...args);
