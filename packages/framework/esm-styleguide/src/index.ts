@@ -4,28 +4,21 @@ import { setupIcons } from './icons/icon-registration';
 import { setupBranding } from './brand';
 import { esmStyleGuideSchema } from './config-schema';
 import { setupPictograms } from './pictograms/pictogram-registration';
-
-export * from './breakpoints';
-export * from './custom-overflow-menu';
-export * from './datepicker';
-export * from './diagnosis-tags';
-export * from './error-state';
-export * from './icons';
-export * from './left-nav';
-export * from './modals';
-export * from './notifications';
-export * from './page-header';
-export * from './patient-banner';
-export * from './patient-photo';
-export * from './pictograms';
-export * from './responsive-wrapper';
-export * from './snackbars';
-export * from './spinner';
-export * from './toasts';
-export * from './workspaces';
+import { registerModal } from '@openmrs/esm-extensions';
+import { getSyncLifecycle } from '@openmrs/esm-react-utils';
+import Workspace2ClosePromptModal from './workspaces2/workspace2-close-prompt.modal';
 
 defineConfigSchema('@openmrs/esm-styleguide', esmStyleGuideSchema);
 setupBranding();
 setupLogo();
 setupIcons();
 setupPictograms();
+
+registerModal({
+  name: 'workspace2-close-prompt',
+  moduleName: '@openmrs/esm-styleguide',
+  load: getSyncLifecycle(Workspace2ClosePromptModal, {
+    featureName: 'workspace2-close-prompt',
+    moduleName: '@openmrs/esm-styleguide',
+  }),
+});
